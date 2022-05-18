@@ -73,7 +73,7 @@ const Card: React.FC<Props> = (props) => {
             <article className="overflow-hidden ">
 
                 <a href="#">
-                    <img alt="Placeholder" className=" hover:animate-bounce ease-in bg-gray-100 block h-auto w-full" src={img} />
+                    <img alt="Placeholder" className=" hover:bounceNew ease-in bg-gray-100 block h-auto w-full" src={img} />
                 </a>
                 <p className="ml-2 text-sm text-gray-300">
                     {'Nº.' + id}
