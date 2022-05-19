@@ -29,7 +29,6 @@ const App:React.FC = () => {
         const indvPokemon = await axios.get(`${POKEMON_API}${pokemon.name}`)
         setPokemons((p) => [...p, indvPokemon.data])
         setLoading(false)
-        console.log(`Hola, plis muestrame el tipo 1: ${(indvPokemon.data.types)}`)
       })
     }
     getPokemon()
