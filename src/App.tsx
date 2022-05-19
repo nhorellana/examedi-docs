@@ -71,7 +71,6 @@ const Card: React.FC<Props> = (props) => {
   return (
     <div className="my-1 px-1 w-full md:w-1/2 lg:my-3 lg:px-3 lg:w-1/4">
             <article className="overflow-hidden ">
-
                 <a href="#">
                     <img alt="Placeholder" className=" hover:bounceNew ease-in bg-gray-100 block h-auto w-full" src={img} />
                 </a>
@@ -80,7 +79,7 @@ const Card: React.FC<Props> = (props) => {
                 </p>
                 <header className="place-items-start flex justify-between">
                     <h1 className="text-lg">
-                        <p className="ml-2 no-underline hover:underline text-black">
+                        <p className="ml-2 no-underline text-black">
                             {name}
                         </p>
                     </h1>
@@ -97,9 +96,7 @@ const Card: React.FC<Props> = (props) => {
                     })}
                     </div>
                 </footer>
-
             </article>
-
     </div>
   )
 }
@@ -107,6 +104,7 @@ const Card: React.FC<Props> = (props) => {
 
 
 const App:React.FC = () => {
+  const [pokeCount, setCount] = useState<number>(0)
   const IMG2 = "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/"
   const IMG_API = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" 
   const [pokemons, setPokemons] = useState<Pokemons[]>([])
@@ -136,6 +134,24 @@ const App:React.FC = () => {
     res.data.results.forEach(async (pokemon: Pokemons) => {
       const poke = await axios.get(
         `https://pokeapi.co/api/v2/pokemon/${pokemon.name}`
+      );
+      setPokemons((p) => [...p, poke.data]);
+      setLoading(false);
+    });
+  };
+
+  const getCount = async () => {
+    const res = await axios.get(
+      `https://pokeapi.co/api/v2/pokemon-species/?limit=0`
+    );
+    setLoading(true);
+    setPokemons([])
+    const count:number = res.data.count
+    const pokemonRandomValues:number[] = Array.from({length: 12}, () => Math.floor(Math.random() * count));
+    console.log(`Lista de numeros: ${pokemonRandomValues}`)
+    pokemonRandomValues.forEach(async (pokemon: number) => {
+      const poke = await axios.get(
+        `https://pokeapi.co/api/v2/pokemon/${pokemon}`
       );
       setPokemons((p) => [...p, poke.data]);
       setLoading(false);
